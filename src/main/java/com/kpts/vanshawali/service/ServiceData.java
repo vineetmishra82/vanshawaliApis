@@ -84,11 +84,27 @@ public class ServiceData {
 		}
 	}
 	
-	public boolean removeVyakti(Vyakti vyakti)
+	public boolean removeVyakti(String id)
 	{
+		Vyakti vyaktiAsPerId = null;
 		try {
-			vyaktiRepo.delete(vyakti);
-			return true;
+			for (Vyakti vyakti : vyaktiRepo.findAll()) {
+				
+				if(vyakti.getVyaktiId().equals(id))
+				{
+					vyaktiAsPerId = vyakti;
+					break;
+				}
+			}
+			
+			if(!vyaktiAsPerId.equals(null))
+			{
+				vyaktiRepo.delete(vyaktiAsPerId);
+				return true;
+			}
+			
+			return false;
+			
 		}catch(Exception ex)
 		{
 			log.info(ex.getLocalizedMessage());

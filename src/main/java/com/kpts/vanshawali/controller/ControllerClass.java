@@ -2,9 +2,12 @@ package com.kpts.vanshawali.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.util.StringBuilderFormattable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,7 +50,7 @@ public class ControllerClass {
 	{
 		return service.getEntireVanshawali();
 	}
-	@GetMapping("/addVyakti")
+	@PostMapping("/addVyakti")
 	public boolean addVyakti(@RequestBody String vyaktiDetails)
 	{
 		log.info(vyaktiDetails);
@@ -60,11 +63,40 @@ public class ControllerClass {
 		try {
 			vyakti = mapper.readValue(vyaktiDetails, Vyakti.class);
 			log.info(vyakti.toString());
+			return service.addVyakti(vyakti);
 		} catch (Exception e) {
 			log.info("Nahi hua convert");
+			return false;
 		}
 		
-		return true;
+		
+	}
+	
+	@PostMapping("/updateVyakti")
+	public boolean updateVyakti(@RequestParam String id,@RequestBody String vyaktiDetails) {
+		
+		log.info(vyaktiDetails);
+		
+		Vyakti vyakti;
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		try {
+			vyakti = mapper.readValue(vyaktiDetails, Vyakti.class);
+			log.info(vyakti.toString());
+			return service.updateVyakti(id,vyakti);
+		} catch (Exception e) {
+			log.info("Nahi hua convert");
+			return false;
+		}
+		
+	}
+	
+	@DeleteMapping("/removeVyakti")
+	public boolean removeVyakti(@RequestParam String id)
+	{
+		return service.removeVyakti(id);
 	}
 
 }
