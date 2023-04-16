@@ -92,7 +92,7 @@ public class ControllerClass {
 		}
 		
 	}
-	
+	//Till delete
 	@DeleteMapping("/removeVyakti")
 	public boolean removeVyakti(@RequestParam String id)
 	{
