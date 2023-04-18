@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kpts.vanshawali.models.Vyakti;
+import com.kpts.vanshawali.repositories.VyaktiRepo;
 import com.kpts.vanshawali.service.ServiceData;
 
 
@@ -65,6 +66,8 @@ public class ControllerClass {
 			log.info(vyakti.toString());
 			return service.addVyakti(vyakti);
 		} catch (Exception e) {
+			log.info(e.getMessage());
+			log.info(e.getLocalizedMessage());
 			log.info("Nahi hua convert");
 			return false;
 		}
@@ -87,6 +90,7 @@ public class ControllerClass {
 			log.info(vyakti.toString());
 			return service.updateVyakti(id,vyakti);
 		} catch (Exception e) {
+			log.info(e.getMessage());
 			log.info("Nahi hua convert");
 			return false;
 		}

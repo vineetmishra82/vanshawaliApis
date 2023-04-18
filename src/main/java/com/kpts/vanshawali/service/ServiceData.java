@@ -49,6 +49,8 @@ public class ServiceData {
 	public boolean addVyakti(Vyakti vyakti)
 	{
 		try {
+			vyakti.setVyaktiId((String.valueOf(vyaktiRepo.findAll().size()+1)));
+			vyakti.setDeletable(true);
 			vyaktiRepo.save(vyakti);
 			return true;
 		}
@@ -90,7 +92,7 @@ public class ServiceData {
 		try {
 			for (Vyakti vyakti : vyaktiRepo.findAll()) {
 				
-				if(vyakti.getVyaktiId().equals(id))
+				if(vyakti.getVyaktiId().equals(id) && vyakti.isDeletable())
 				{
 					vyaktiAsPerId = vyakti;
 					break;

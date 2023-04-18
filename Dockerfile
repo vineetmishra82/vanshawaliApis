@@ -10,4 +10,4 @@ COPY src ./src
  
 CMD ["./mvnw", "spring-boot:run"]
 
-EXPOSE 3000
+EXPOSE 8556

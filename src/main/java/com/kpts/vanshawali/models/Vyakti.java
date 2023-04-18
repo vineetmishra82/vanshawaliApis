@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Document(collection = "Vanshawali")
@@ -14,13 +15,11 @@ public class Vyakti {
 	
 	@Id
 	@Getter
+	@Setter
 	private String vyaktiId;
 	
 	@Getter
 	private String name;
-	
-	@Getter
-	private String fatherName;
 	
 	@Getter
 	private boolean isLiving;
@@ -35,12 +34,13 @@ public class Vyakti {
 	private boolean isFirst;
 	
 	@Getter
-	private Vyakti nearestRelative;
+	private String nearestRelative;
 	
 	@Getter
 	private String relationship;
 	
 	@Getter
+	@Setter
 	private boolean isDeletable;
 	
 	@Getter
