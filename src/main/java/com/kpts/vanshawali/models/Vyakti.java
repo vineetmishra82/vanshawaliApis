@@ -22,7 +22,7 @@ public class Vyakti {
 	private String name;
 	
 	@Getter
-	private boolean isLiving;
+	private String isLiving;
 	
 	@Getter
 	private String gender;
