@@ -49,7 +49,9 @@ public class ServiceData {
 	public boolean addVyakti(Vyakti vyakti)
 	{
 		try {
-			vyakti.setVyaktiId((String.valueOf(vyaktiRepo.findAll().size()+1)));
+			String newId= getVyaktiIdFromList(String.valueOf(vyaktiRepo.findAll().size()+1));
+			log.info("New id is "+newId);
+			vyakti.setVyaktiId(newId);
 			vyakti.setDeletable(true);
 			vyaktiRepo.save(vyakti);
 			return true;
@@ -61,6 +63,49 @@ public class ServiceData {
 		}
 	}
 	
+	private String getVyaktiIdFromList(String value) {
+	
+		boolean idExists = false;
+		String proposedIdString = value;
+		
+		idExists = checkIfIdExists(proposedIdString);
+		
+		if(idExists)
+		{
+			while(true)
+			{
+				proposedIdString = String.valueOf(Integer.parseInt(proposedIdString)+1);
+				
+				
+				if(!checkIfIdExists(proposedIdString))
+				{
+					break;
+				}
+				else {
+					checkIfIdExists(proposedIdString);
+				}
+			
+			}
+		}
+		
+		
+		// TODO Auto-generated method stub
+		return proposedIdString;
+	}
+
+	private boolean checkIfIdExists(String proposedIdString) {
+			for (Vyakti vyakti : vyaktiRepo.findAll()) {
+			
+			if(vyakti.getVyaktiId().equals(proposedIdString))
+			{
+				return true;
+				
+			}
+			
+		}
+		return false;
+	}
+
 	public boolean updateVyakti(String id, Vyakti updateVyakti)
 	{
 		Vyakti vyaktiAsPerId = null;
@@ -75,8 +120,9 @@ public class ServiceData {
 		}
 		
 		try {
+			String idNum = vyaktiAsPerId.getVyaktiId(); 
 			vyaktiRepo.findAll().remove(vyaktiAsPerId);
-			vyaktiRepo.findAll().add(updateVyakti);
+			updateVyakti.setVyaktiId(idNum);
 			vyaktiRepo.save(updateVyakti);
 			return true;
 		}catch(Exception ex)
